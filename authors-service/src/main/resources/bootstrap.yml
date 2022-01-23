@@ -1,0 +1,25 @@
+---
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888/api/config-server
+  profiles:
+    active: dev
+  application:
+    name: authors-service
+  cloud:
+    config:
+      discovery:
+        service-id: configserver
+        enabled: true
+      fail-fast: false
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8762/api/service-discovery/eureka/
+  instance:
+    metadata-map:
+        configPath: /api/config-server

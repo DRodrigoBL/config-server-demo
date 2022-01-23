@@ -1,0 +1,51 @@
+version: '3'
+networks:
+  microservices:
+    driver: bridge
+services:
+  discovery-server:
+    build: ./app-service-discovery
+    environment:
+      - HOST_NAME=discovery-server
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8762/eureka/
+    ports:
+      - "8762:8762"
+    networks:
+      - microservices
+  config-server:
+    build: ./app-config-server
+    environment:
+      - HOST_NAME=config-server
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8762/eureka/
+    ports:
+      - "8888:8888"
+    networks:
+      - microservices
+    depends_on:
+      - discovery-server
+  authors-service:
+    build: ./authors-service
+    environment:
+      - HOST_NAME=authors-service
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8762/eureka/
+    ports:
+      - "8085:8085"
+    networks:
+      - microservices
+    depends_on:
+      - discovery-server
+      - config-server
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    container_name: zookeeper
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPIC: "my_topic:1:3"

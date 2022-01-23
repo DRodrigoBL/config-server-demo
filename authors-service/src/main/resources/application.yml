@@ -4,19 +4,15 @@ management:
       exposure:
         include: '*'
 spring:
-  application:
-    name: authors-service
+  cloud:
+    config:
+      discovery:
+        service-id: configserver
+        enabled: true
+      fail-fast: true
   profiles:
     active: dev
   config:
-    import: configserver:http://localhost:8888/api/config-server
+    import: optional:configserver:http://localhost:8888/api/config-server
 server:
-  port: 8764
-
-eureka:
-  client:
-    enabled: true
-    register-with-eureka: true
-    fetch-registry: true
-    serviceUrl:
-      defaultZone: http://localhost:8762/api/service-discovery/eureka/
+  port: 8085

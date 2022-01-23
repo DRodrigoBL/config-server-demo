@@ -9,7 +9,7 @@ server:
     context-path: /api/config-server
 spring:
   application:
-    name: config-server
+    name: configserver
   cloud:
     config:
       server:

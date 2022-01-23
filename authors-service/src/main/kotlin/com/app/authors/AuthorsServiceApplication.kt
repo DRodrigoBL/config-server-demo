@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 
 
 @RestController
-class MyController(@Value("\${authors.platform-classification.gold}") val goldAuthors: String){
+class MyController(@Value("\${authors.platform-classification.gold:oreilly-default}") val goldAuthors: String){
 
 	@GetMapping("/api/authors/gold")
 	fun retrieveGoldAuthros(): String{
