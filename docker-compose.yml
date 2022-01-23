@@ -3,38 +3,38 @@ networks:
   microservices:
     driver: bridge
 services:
-  discovery-server:
+  discovery-server-container:
     build: ./app-service-discovery
     environment:
-      - HOST_NAME=discovery-server
-      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8762/eureka/
+      - HOST_NAME=discovery-server-container
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server-container:8762/eureka/
     ports:
       - "8762:8762"
     networks:
       - microservices
-  config-server:
+  config-server-container:
     build: ./app-config-server
     environment:
-      - HOST_NAME=config-server
-      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8762/eureka/
+      - HOST_NAME=config-server-container
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server-container:8762/eureka/
     ports:
       - "8888:8888"
     networks:
       - microservices
     depends_on:
-      - discovery-server
+      - discovery-server-container
   authors-service:
     build: ./authors-service
     environment:
       - HOST_NAME=authors-service
-      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8762/eureka/
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server-container:8762/eureka/
     ports:
       - "8085:8085"
     networks:
       - microservices
     depends_on:
-      - discovery-server
-      - config-server
+      - discovery-server-container
+      - config-server-container
   zookeeper:
     image: wurstmeister/zookeeper
     ports:

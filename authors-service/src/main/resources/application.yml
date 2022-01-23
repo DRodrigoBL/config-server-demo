@@ -13,6 +13,7 @@ spring:
   profiles:
     active: dev
   config:
-    import: optional:configserver:http://localhost:8888/api/config-server
+    #import: optional:configserver:http://localhost:8888/api/config-server
+    import: optional:configserver:http://config-server-container:8888/api/config-server
 server:
   port: 8085

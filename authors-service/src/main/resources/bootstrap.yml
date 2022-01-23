@@ -1,7 +1,8 @@
 ---
 spring:
   config:
-    import: optional:configserver:http://localhost:8888/api/config-server
+    #import: optional:configserver:http://localhost:8888/api/config-server
+    import: optional:configserver:http://config-server-container:8888/api/config-server
   profiles:
     active: dev
   application:
@@ -19,7 +20,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://localhost:8762/api/service-discovery/eureka/
+      #defaultZone: http://localhost:8762/api/service-discovery/eureka/
+      defaultZone: http://discovery-server-container:8762/api/service-discovery/eureka/
   instance:
     metadata-map:
         configPath: /api/config-server
