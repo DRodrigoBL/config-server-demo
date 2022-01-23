@@ -1,0 +1,22 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: authors-service
+  profiles:
+    active: dev
+  config:
+    import: configserver:http://localhost:8888/api/config-server
+server:
+  port: 8764
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8762/api/service-discovery/eureka/
