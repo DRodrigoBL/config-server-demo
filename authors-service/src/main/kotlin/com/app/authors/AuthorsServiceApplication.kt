@@ -3,6 +3,7 @@ package com.app.authors
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -15,6 +16,7 @@ fun main(args: Array<String>) {
 
 
 @RestController
+@RefreshScope
 class MyController(@Value("\${authors.platform-classification.gold:oreilly-default}") val goldAuthors: String){
 
 	@GetMapping("/api/authors/gold")

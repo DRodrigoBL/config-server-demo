@@ -21,5 +21,9 @@ spring:
       kafka:
         binder:
           brokers: 'localhost:9092'
+      bindings:
+        springCloudBusInput:
+          group: ${spring.application.name}-spring-cloud-bus
     bus:
+      enabled: true
       destination: app-cloud-bus
