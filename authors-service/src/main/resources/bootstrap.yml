@@ -9,16 +9,4 @@ spring:
     name: authors-service
   cloud:
     config:
-      discovery:
-        service-id: configserver
-        enabled: true
-      fail-fast: false
-
-eureka:
-  client:
-    enabled: true
-    register-with-eureka: true
-    fetch-registry: true
-    serviceUrl:
-      defaultZone: http://localhost:8762/api/service-discovery/eureka/
-      #defaultZone: http://discovery-server-container:8762/api/service-discovery/eureka/ for docker-compose
+      uri: http://localhost:8888/api/config-server
